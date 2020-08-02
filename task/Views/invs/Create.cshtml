@@ -1,0 +1,250 @@
+﻿@model task.Models.inv
+@{
+    ViewBag.Title = "Create";
+    int i = 0;
+
+}
+
+<h2>Create</h2>
+
+@if (Model != null)
+{
+    <h4>some thing not correct</h4>}
+
+@if (Model == null)
+{
+    <h4>your last invoice add successfully do you want to add anathorone?</h4>}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Invoce</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Invoice_No, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Invoice_No, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Invoice_No, "", new { @class = "text-danger" })
+
+            </div>
+
+            @Html.LabelFor(model => model.Invoice_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Invoice_Date, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.Invoice_Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Store, "Store", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="Store" name="Store" required>
+                    <option value="Giza store">Giza store</option>
+                    <option value="mall of egypt">mall of egypt</option>
+                    <option value="aliaa">aliaa</option>
+                    <option value="harm">harm</option>
+                    <option value="6October">6October</option>
+                </select>
+            </div>
+        </div>
+
+        <table id="any">
+            <tr>
+                <th>
+                    Item
+                </th>
+                <th>
+                    Unit
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Qty
+                </th>
+                <th>
+                    Total
+                </th>
+                <th>
+                    Discount
+                </th>
+                <th>
+                    Net
+                </th>
+            </tr>
+            <tr id="@i">
+                <td>
+                    <select class="form-control" id="Item0" name="Item0">
+                        <option value="black pants 0066">black pants 0066</option>
+                        <option value="red shirt">red shirt</option>
+                        <option value="long dress 008">long dress 008</option>
+                        <option value="red pants 0606">red pants 0606</option>
+                        <option value="item 0207">item 0207</option>
+                    </select>
+                </td>
+
+                <td>
+                    <select class="form-control" id="Unit0" name="Unit0">
+                        <option value="Egyption pound">Egyption pound</option>
+                        <option value="$ Doller">$ Doller</option>
+
+                    </select>
+                </td>
+                <td>
+                    <input class="form-control text-box single-line" id="Price0" name="price0" type="number" value="" required><span class="field-validation-valid text-danger" data-valmsg-for="price" data-valmsg-replace="true"></span>
+                </td>
+                <td>
+
+                    <input class="form-control text-box single-line" id="Qty0" name="Qty0" type="number" value="" required><span class="field-validation-valid text-danger" data-valmsg-for="price" data-valmsg-replace="true"></span>
+
+                </td>
+                <td>
+
+                    <input readonly onmousemove="total0()" class="form-control text-box single-line" id="Total0" name="Total0" type="number" value="" required>
+                </td>
+                <td>
+                    <input class="form-control text-box single-line" id="Discount0" name="Discount0" type="number" value="" placeholder="30 %" required><span class="field-validation-valid text-danger" data-valmsg-for="price" data-valmsg-replace="true"></span>
+                </td>
+                <td>
+                    <input readonly onmousemove="discound0()" class="form-control text-box single-line" id="Net0" name="Net0" type="number" value="" required>
+
+                </td>
+            </tr>
+        </table>
+
+        <hr />
+        <br />
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Total_All, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Total_All, new { htmlAttributes = new { @class = "form-control", @onmousemove = "totalAll(0)" } })
+                @Html.ValidationMessageFor(model => model.Total_All, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Taxes_All, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Taxes_All, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Taxes_All, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Net_All, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Net_All, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Net_All, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" name="" />
+            </div>
+        </div>
+    </div>
+
+    i++;
+
+
+}
+<button onclick=addElement() class="btn btn-default">Add Row </button>
+<button onclick=removeElementAll() class="btn btn-default">delete  </button>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var i = 1;
+        function total(x) {
+            var price0 = document.getElementById('Price' + x).value;
+            var Qut = document.getElementById('Qty' + x).value;
+            document.getElementById('Total' + x).value = price0 * Qut;
+        }
+        function total0() {
+            var price0 = document.getElementById('Price0').value;
+            var Qut = document.getElementById('Qty0').value;
+            document.getElementById('Total0').value = price0 * Qut;
+        }
+
+        function discound(x) {
+            var discound = document.getElementById('Discount' + x).value;
+            var price0 = document.getElementById('Price' + x).value;
+            var Qut = document.getElementById('Qty' + x).value;
+            total00 = price0 * Qut;
+            document.getElementById('Net' + x).value = total00 - (total00 * discound / 100);
+        }
+        function discound0() {
+
+            var discound = document.getElementById('Discount0').value;
+            var price0 = document.getElementById('Price0').value;
+            var Qut = document.getElementById('Qty0').value;
+            total00 = price0 * Qut;
+            document.getElementById('Net0').value = total00 - (total00 * discound / 100);
+        }
+        var calu = 0;
+
+        function totalAll(x) {
+
+            var price0 = document.getElementById('Price' + x).value;
+            var Qut = document.getElementById('Qty' + x).value;
+
+            calu = calu + price0 * Qut;
+            if (x <= i) {
+                x++;
+                totalAll(x);
+            }
+            document.getElementById('Total_All').value = calu;
+        }
+
+        function addElement() {
+            // Adds an element to the document
+            var p = document.getElementById('any');
+            var newElement = document.createElement('tr');
+
+            newElement.setAttribute('id', i);
+
+            newElement.innerHTML = '<td><select class="form-control" id="Item' + i + '" name="Item' + i + '"><option value="black pants 0066">black pants 0066</option><option value="red shirt">red shirt</option> <option value="long dress 008">long dress 008</option><option value="red pants 0606">red pants 0606</option><option value="item 0207">item 0207</option>' +
+                '  </select><span class="field-validation-valid text-danger" data-valmsg-for="ItemModelId" data-valmsg-replace="true"></span></td >' +
+                ' <td><select class="form-control" id="Unit' + i + '" name="Unit' + i + '"><option value="Doller">$ Doller</option>' +
+                '<option value="Egyption pound">Egyption pound</option></select> <span class="field-validation-valid text-danger" data-valmsg-for="unitesModelId" data-valmsg-replace="true"></span></td>' +
+                '<td><input class="form-control text-box single-line" id = "Price' + i + '" name = "Price' + i + '" type = "text" value = "" ><span class="field-validation-valid text-danger" data-valmsg-for="price" data-valmsg-replace="true"></span></td >' +
+                '<td><input class="form-control text-box single-line" id = "Qty' + i + '" name = "Qty' + i + '" type = "text" value = "" ><span class="field-validation-valid text-danger" data-valmsg-for="Qty" data-valmsg-replace="true"></span></td >' +
+                '<td><input  readonly onmouseover="total(' + i + ')" class="form-control text-box single-line" id = "Total' + i + '" name = "Total' + i + '" type = "text" value = "" ></td >' +
+                '<td> <input class="form-control text-box single-line" id = "Discount' + i + '" name = "Discount' + i + '" type = "text" value = "" ><span class="field-validation-valid text-danger" data-valmsg-for="Discount" data-valmsg-replace="true"></span>   </td >' +
+                '<td> <input  readonly onmousemove="discound(' + i + ')" class="form-control text-box single-line"   id="Net' + i + '" name="Net' + i + '" type="number" value="" required> </td >;' +
+                ' <button onclick="removeElement(' + i + ')" class="btn submit_btn form-control">delete row</button>';
+
+            i++;
+            p.appendChild(newElement);
+
+
+        }
+
+
+        function removeElement(elementId) {
+            // Removes an element from the document
+            var element = document.getElementById(elementId);
+            element.parentNode.removeChild(element);
+            i--;
+
+        }
+        function removeElementAll() {
+            // Removes an element from the document
+            //  for (var x = 1; x <= i; x++) {
+            //var element = document.getElementById(x);
+            // element.parentNode.removeChild(element); }
+            location.reload();
+
+
+        }
+    </script>
+
+}
