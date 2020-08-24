@@ -1,3 +1,2 @@
 # invoic
-# invoic
-# invoce
+# # System for billing and calculating discounts
